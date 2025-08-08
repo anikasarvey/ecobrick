@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBrick Community - Building a Sustainable Future</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2E8B57;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            background: #2E8B57;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FFD700, #32CD32);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #32CD32, #228B22);
+            color: white;
+            box-shadow: 0 4px 15px rgba(50, 205, 50, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container {
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        /* Map Section */
+        .map-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .map-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            padding: 0.8rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            min-width: 250px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #32CD32;
+        }
+
+        .map-display {
+            height: 500px;
+            background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #ddd;
+        }
+
+        .map-marker {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #FF6B6B;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: bounce 2s infinite;
+        }
+
+        .map-marker:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+
+        .marker-tooltip {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .map-marker:hover .marker-tooltip {
+            opacity: 1;
+        }
+
+        /* Info Section */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .info-card h3 {
+            color: #2E8B57;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card li:before {
+            content: "✓";
+            color: #32CD32;
+            font-weight: bold;
+        }
+
+        /* Email Section */
+        .email-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .email-highlight {
+            background: linear-gradient(45deg, #32CD32, #228B22);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+        }
+
+        .email-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 0.5rem;
+            text-align: left;
+        }
+
+        .form-input {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #32CD32;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .map-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-input {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                EcoBrick Community
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#map"><i class="fas fa-map-marker-alt"></i> Map</a></li>
+                <li><a href="#info"><i class="fas fa-info-circle"></i> Learn</a></li>
+                <li><a href="#submit"><i class="fas fa-envelope"></i> Submit Location</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1><i class="fas fa-globe-americas"></i> EcoBrick Community</h1>
+            <p>Transform plastic waste into building blocks for a sustainable future. Find drop-off locations near you and join the global movement!</p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <span class="stat-number" id="locationCount">47</span>
+                    <span class="stat-label">Drop-off Locations</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="ecobrickCount">12,543</span>
+                    <span class="stat-label">EcoBricks Collected</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="plasticSaved">8.2</span>
+                    <span class="stat-label">Tons Plastic Saved</span>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#map" class="btn btn-primary">
+                    <i class="fas fa-map-marker-alt"></i> Find Drop-off Locations
+                </a>
+                <a href="#info" class="btn btn-secondary">
+                    <i class="fas fa-lightbulb"></i> Learn About EcoBricks
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-map"></i> Drop-off Location Map</h2>
+            
+            <div class="map-container">
+                <div class="map-header">
+                    <h3><i class="fas fa-location-arrow"></i> Find EcoBrick Drop-off Points Near You</h3>
+                    <div class="search-container">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search locations (city, address, name...)">
+                        <button class="btn btn-primary" onclick="searchLocations()">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                        <button class="btn btn-secondary" onclick="showAllLocations()">
+                            <i class="fas fa-globe"></i> Show All
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="map-display" id="mapDisplay">
+                    <!-- Dynamic markers will be added here -->
+                </div>
+                
+                <div style="margin-top: 1rem; text-align: center; color: #666;">
+                    <p><i class="fas fa-info-circle"></i> Click on markers to view location details. Red markers indicate active drop-off points.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section id="info" class="section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> What Are EcoBricks?</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-recycle"></i> What is an EcoBrick?</h3>
+                    <p>An EcoBrick is a plastic bottle packed with non-recyclable plastic waste to create a reusable building block. It's a simple solution that transforms waste into valuable construction material.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-hammer"></i> How to Make One</h3>
+                    <ul>
+                        <li>Clean & dry a plastic bottle (0.5L-1.5L)</li>
+                        <li>Pack with non-recyclable plastics</li>
+                        <li>Use a stick to compress tightly</li>
+                        <li>Aim for 0.33g per ml density</li>
+                        <li>Cap securely and record weight</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-check-circle"></i> What to Include</h3>
+                    <ul>
+                        <li>Chip bags & candy wrappers</li>
+                        <li>Plastic bags & food packaging</li>
+                        <li>Cellophane & bubble wrap</li>
+                        <li>Styrofoam (broken small)</li>
+                        <li>Non-recyclable plastic films</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-times-circle"></i> What to Avoid</h3>
+                    <ul>
+                        <li>Glass, metal, or organic waste</li>
+                        <li>Recyclable plastics</li>
+                        <li>Hazardous materials</li>
+                        <li>Sharp or dangerous objects</li>
+                        <li>Wet or dirty materials</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-globe-americas"></i> Environmental Impact</h3>
+                    <ul>
+                        <li>Reduces landfill waste</li>
+                        <li>Creates durable building materials</li>
+                        <li>Raises plastic consumption awareness</li>
+                        <li>Builds community engagement</li>
+                        <li>Enables sustainable construction</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-building"></i> Uses for EcoBricks</h3>
+                    <ul>
+                        <li>Garden benches & furniture</li>
+                        <li>Wall construction</li>
+                        <li>Playground equipment</li>
+                        <li>Community structures</li>
+                        <li>Art installations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submit Location Section -->
+    <section id="submit" class="section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-plus-circle"></i> Submit a Drop-off Location</h2>
+            
+            <div class="email-section">
+                <h3><i class="fas fa-envelope"></i> Help Grow Our Network!</h3>
+                <p>Know a great EcoBrick drop-off location? Help your community by submitting it to our map!</p>
+                
+                <div class="email-highlight">
+                    <h4><i class="fas fa-mail-bulk"></i> Submit via Email</h4>
+                    <p>Send location details to: <strong>ecodropofff@gmail.com</strong></p>
+                    <p>We'll verify and add it to our map within 2-3 business days!</p>
+                </div>
+                
+                <div class="email-form">
+                    <h4>Or use this quick form to compose your email:</h4>
+                    
+                    <div class="form-group">
+                        <label for="locationName"><i class="fas fa-tag"></i> Location Name</label>
+                        <input type="text" id="locationName" class="form-input" placeholder="e.g., Green Community Center">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="locationAddress"><i class="fas fa-map-marker-alt"></i> Full Address</label>
+                        <input type="text" id="locationAddress" class="form-input" placeholder="123 Main Street, City, State, ZIP">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactInfo"><i class="fas fa-phone"></i> Contact Information</label>
+                        <input type="text" id="contactInfo" class="form-input" placeholder="Phone, email, or website">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="locationType"><i class="fas fa-building"></i> Location Type</label>
+                        <select id="locationType" class="form-input">
+                            <option value="">Select type...</option>
+                            <option value="Community Center">Community Center</option>
+                            <option value="School">School</option>
+                            <option value="NGO">NGO/Non-profit</option>
+                            <option value="Business">Business</option>
+                            <option value="Government">Government Facility</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="operatingHours"><i class="fas fa-clock"></i> Operating Hours</label>
+                        <input type="text" id="operatingHours" class="form-input" placeholder="e.g., Mon-Fri 9AM-5PM">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalInfo"><i class="fas fa-info"></i> Additional Information</label>
+                        <textarea id="additionalInfo" class="form-input form-textarea" placeholder="Any special instructions, capacity, or requirements..."></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="generateEmail()" style="width: 100%; font-size: 1.2rem; padding: 1.2rem;">
+                        <i class="fas fa-paper-plane"></i> Generate Email to Submit
+                    </button>
+                </div>
+                
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 193, 7, 0.1); border-left: 4px solid #FFC107; border-radius: 8px;">
+                    <h4><i class="fas fa-lightbulb"></i> Tips for Submissions:</h4>
+                    <ul style="text-align: left; margin-top: 1rem;">
+                        <li>✓ Verify the location accepts EcoBricks</li>
+                        <li>✓ Include accurate contact information</li>
+                        <li>✓ Mention any size or quantity restrictions</li>
+                        <li>✓ Note if appointment required</li>
+                        <li>✓ Include GPS coordinates if available</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p><i class="fas fa-heart" style="color: #FF6B6B;"></i> Made with love for our planet | Contact: <strong>ecodropoff@gmail.com</strong></p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">Together, we're building a sustainable future, one EcoBrick at a time!</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample drop-off locations data
+        const dropOffLocations = [
+            {
+                id: 1,
+                name: "Green Community Center",
+                address: "123 Eco Street, Green City",
+                contact: "contact@greencenter.org",
+                type: "Community Center",
+                lat: 40.7128,
+                lng: -74.0060,
+                description: "Large collection area, accepts all sizes. Open Mon-Fri 9AM-6PM."
+            },
+            {
+                id: 2,
+                name: "Sustainable School",
+                address: "456 Education Ave, Learning Town",
+                contact: "(555) 123-4567",
+                type: "School",
+                lat: 40.7589,
+                lng: -73.9851,
+                description: "Student-run program. Drop-off after school hours 3-5PM."
+            },
+            {
+                id: 3,
+                name: "EcoWarriors NGO",
+                address: "789 Planet Road, Earth City",
+                contact: "info@ecowarriors.org",
+                type: "NGO",
+                lat: 40.7831,
+                lng: -73.9712,
+                description: "Professional processing facility. Open Mon-Fri 9AM-5PM."
+            },
+            {
+                id: 4,
+                name: "Zero Waste Store",
+                address: "321 Clean Ave, Eco Town",
+                contact: "hello@zerowaste.com",
+                type: "Business",
+                lat: 40.7282,
+                lng: -73.9942,
+                description: "Retail location with EcoBrick collection. Open daily 10AM-8PM."
+            },
+            {
+                id: 5,
+                name: "City Environmental Dept",
+                address: "555 Government Plaza, Metro City",
+                contact: "(555) ENV-CITY",
+                type: "Government",
+                lat: 40.7505,
+                lng: -73.9934,
+                description: "Municipal collection point. Open weekdays 8AM-4PM."
+            }
+        ];
+
+        let currentLocations = [...dropOffLocations];
+
+        // Initialize map on page load
+        window.addEventListener('load', function() {
+            displayLocations(dropOffLocations);
+            updateStats();
+        });
+
+        // Display locations on map
+        function displayLocations(locations) {
+            const mapDisplay = document.getElementById('mapDisplay');
+            mapDisplay.innerHTML = '';
+
+            locations.forEach((location, index) => {
+                const marker = document.createElement('div');
+                marker.className = 'map-marker';
+                marker.innerHTML = `<i class="fas fa-map-marker-alt"></i>`;
+                
+                // Convert coordinates to screen position (simplified mapping)
+                const x = ((location.lng + 74.1) * 800) % 800;
+                const y = ((40.8 - location.lat) * 400) % 400;
+                
+                marker.style.left = Math.max(20, Math.min(x, 770)) + 'px';
+                marker.style.top = Math.max(20, Math.min(y, 370)) + 'px';
+                
+                // Add tooltip
+                const tooltip = document.createElement('div');
+                tooltip.className = 'marker-tooltip';
+                tooltip.innerHTML = `<strong>${location.name}</strong><br>${location.type}`;
+                marker.appendChild(tooltip);
+                
+                // Add click event
+                marker.addEventListener('click', () => showLocationDetails(location));
+                
+                mapDisplay.appendChild(marker);
+            });
+
+            // Add legend
+            const legend = document.createElement('div');
+            legend.style.cssText = `
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                background: rgba(255,255,255,0.9);
+                padding: 1rem;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            `;
+            legend.innerHTML = `
+                <strong><i class="fas fa-map"></i> EcoBrick Drop-off Map</strong><br>
+                <span style="color: #FF6B6B;"><i class="fas fa-map-marker-alt"></i></span> ${locations.length} locations found<br>
+                <small>Click markers for details</small>
+            `;
+            mapDisplay.appendChild(legend);
+        }
+
+        // Search locations
+        function searchLocations() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (!searchTerm) {
+                displayLocations(dropOffLocations);
+                return;
+            }
+
+            const filteredLocations = dropOffLocations.filter(location => 
+                location.name.toLowerCase().includes(searchTerm) ||
+                location.address.toLowerCase().includes(searchTerm) ||
+                location.type.toLowerCase().includes(searchTerm) ||
+                location.description.toLowerCase().includes(searchTerm)
+            );
+
+            displayLocations(filteredLocations);
+            
+            if (filteredLocations.length === 0) {
+                alert(`No locations found matching "${searchTerm}". Try different keywords!`);
+            }
+        }
+
+        // Show all locations
+        function showAllLocations() {
+            document.getElementById('searchInput').value = '';
+            displayLocations(dropOffLocations);
+        }
+
+        // Show location details
+        function showLocationDetails(location) {
+            const details = `
+🏢 ${location.name}
+📍 ${location.address}
+📞 ${location.contact}
+🏷️ Type: ${location.type}
+
+📝 ${location.description}
+
+Would you like to get directions to this location?
+            `.trim();
+            
+            if (confirm(details)) {
+                // Open Google Maps with the location
+                const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`;
+                window.open(mapsUrl, '_blank');
+            }
+        }
+
+        // Generate email for location submission
+        function generateEmail() {
+            const name = document.getElementById('locationName').value;
+            const address = document.getElementById('locationAddress').value;
+            const contact = document.getElementById('contactInfo').value;
+            const type = document.getElementById('locationType').value;
+            const hours = document.getElementById('operatingHours').value;
+            const info = document.getElementById('additionalInfo').value;
+
+            if (!name || !address) {
+                alert('Please fill in at least the location name and address!');
+                return;
+            }
+
+            const subject = encodeURIComponent(`New EcoBrick Drop-off Location: ${name}`);
+            const body = encodeURIComponent(`
+Hi EcoBrick Community Team,
+
+I'd like to submit a new drop-off location for your map:
+
+LOCATION DETAILS:
+📍 Name: ${name}
+🏠 Address: ${address}
